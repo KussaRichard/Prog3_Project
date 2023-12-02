@@ -1,0 +1,21 @@
+
+`
+java:S2184€"BCast one of the operands of this division operation to a "double".(®“ÖÈ8æ×ÓàÂ1
+e
+java:S2184"BCast one of the operands of this division operation to a "double".(Éš˜Üúÿÿÿÿ8æ×ÓàÂ1
+o
+java:S3776 "RRefactor this method to reduce its Cognitive Complexity from 58 to the 15 allowed.(“–ış8·æ»¸Â1
+{
+java:S2142&"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ä ¹€8¸æ»¸Â1
+{
+java:S2142f"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ä ¹€8¹æ»¸Â1
+v
+java:S3012w"YUse "Arrays.copyOf", "Arrays.asList", "Collections.addAll" or "System.arraycopy" instead.(©¥ø‚8½æ»¸Â1
+D
+java:S2185€"&Remove this silly call to "Math.floor"(®“ÖÈ8ËÚÓàÂ1
+I
+java:S2185"&Remove this silly call to "Math.floor"(Éš˜Üúÿÿÿÿ8ËÚÓàÂ1
+|
+java:S2177†"^Rename this method or correct the type of the argument(s) to override the parent class method.(ı­Ô¿8¿æ»¸Â1
+S
+java:S2446Œ"0"notify" may not wake up the appropriate thread.(óÄ£¶øÿÿÿÿ8¿æ»¸Â1

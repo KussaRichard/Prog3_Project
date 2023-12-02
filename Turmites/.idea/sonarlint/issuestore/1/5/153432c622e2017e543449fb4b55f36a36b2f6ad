@@ -1,0 +1,23 @@
+
+c
+java:S1192"FDefine a constant instead of duplicating this literal "Start" 5 times.(¢ªí¦8Ìê›ÑÂ1
+E
+java:S1604*"(Make this anonymous inner class a lambda(¯ı©8Ìê›ÑÂ1
+E
+java:S16042"(Make this anonymous inner class a lambda(Í÷î8Ìê›ÑÂ1
+J
+java:S1604K"(Make this anonymous inner class a lambda(ºªÔƒşÿÿÿÿ8Íê›ÑÂ1
+E
+java:S1604["(Make this anonymous inner class a lambda(™…´Å8Íê›ÑÂ1
+E
+java:S1604n"(Make this anonymous inner class a lambda(â—šŞ8Íê›ÑÂ1
+F
+java:S1604†"(Make this anonymous inner class a lambda(­üà¿8Íê›ÑÂ1
+E
+java:S1604“"(Make this anonymous inner class a lambda(¢ï¥8Íê›ÑÂ1
+t
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.(şñÊëÿÿÿÿÿ8âê›ÑÂ1
+T
+java:S1854à"6Remove this useless assignment to local variable "mf".(Á ôª8õê›ÑÂ1
+E
+java:S1481à"'Remove this unused "mf" local variable.(Á ôª8õê›ÑÂ1
