@@ -5,15 +5,16 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 
 public class MainFrame extends JFrame {
-    private Grid grid;
-    private Display display;
-    private Turmite turmite;
-    private Save saver;
-    private int size;
-    private int speed;
-    private String fileName;
+    private Grid grid; // A rács
+    private Display display; // A megjelenítő felület
+    private Turmite turmite; // A turmesz vagy hangya
+    private Save saver; // A kép készítő
+    private int size; // A rács mérete (mindig négyzet alapú)
+    private int speed; // A turmesz (vagy hangya) sebessége
+    private String fileName; // A beolvasás forrása
     private void init() {
         JPanel mainPanel = new JPanel(new GridLayout(8, 1));
 
@@ -51,22 +52,34 @@ public class MainFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 output.setForeground(Color.BLACK);
+                output.setText("    Nincs új üzenet..");
+                String old = fileName;
                 String path = "input\\" + input.getText() + ".txt";
                 File f = new File(path);
-                if(f.exists()) {
+                if(f.exists()) { // Csak akkor végezzük el a beolvasást, ha létezik a fájl
                     fileName = path;
                     if(!turmite.isTerminated()) {
                         turmite.terminate();
                     }
+                    try {
+                        turmite = new Turmite(grid, display, fileName, speed);
+                    } catch (IOException exception) { // Hibás bemenetnél visszatöltjük a korábbi bemenetet
+                        output.setForeground(Color.RED);
+                        output.setText("    Hibás bemenet!");
+                        fileName = old;
+                        try {
+                            grid.resize(size, size);
+                            display.refresh(grid, (int) Math.floor((double)grid.getWidth()/2), (int) Math.floor((double)grid.getHeight()/2));
+                            turmite = new Turmite(grid, display, fileName, speed);
+                        } catch (IOException noException) { /* A default bemenetnek jónak kell lennie */ }
+                    }
                     grid.resize(size, size);
-                    turmite.setStartingPosition(grid);
                     display.refresh(grid, turmite.getX(), turmite.getY());
                     startNStop.setText("Start");
-                    output.setText("    Sikeres beolvasás!");
                 }
                 else {
-                    output.setText("    A beolvasni kívánt fájl nem létezik!");
                     output.setForeground(Color.RED);
+                    output.setText("    A beolvasni kívánt fájl nem létezik!");
                 }
             }
         });
@@ -77,11 +90,8 @@ public class MainFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 output.setForeground(Color.BLACK);
                 speed = (int)speedValue.getValue();
-                if(turmite.isTerminated()) {
-                    turmite = new Turmite(grid, display, fileName, speed);
-                }
-                else {
-                    turmite.setSpeed(speed);
+                if(!turmite.isTerminated()) {
+                    turmite.setSpeed(speed); // Menet közben is át tudjuk állítani
                 }
                 output.setText("    A turmesz sebessége sikeresen beállítva!");
             }
@@ -93,15 +103,15 @@ public class MainFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 output.setForeground(Color.BLACK);
                 newSize(sizeValue);
-                grid.resize(size, size);
-                turmite.setStartingPosition(grid);
-                display.refresh(grid, turmite.getX(), turmite.getY());
+                grid.resize(size, size); // A rácsot alaphelyzetbe állítjuk
                 if(turmite.isTerminated()) {
                     startNStop.setText("Start");
                 }
-                else {
+                else { // Egy működő turmeszt nincs oka leállítani, csak alaphelyzetbe állítja
                     turmite.setDirection(0);
+                    turmite.setStartingPosition(grid);
                 }
+                display.refresh(grid, turmite.getX(), turmite.getY()); // Frissítjük a megjelenítőt
                 output.setText("    A rács mérete sikeresen beállítva!");
             }
         });
@@ -111,22 +121,19 @@ public class MainFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 output.setForeground(Color.BLACK);
-                if(startNStop.getText().equals("Start")) {
-                    if(turmite.isTerminated()) {
-                        turmite = new Turmite(grid, display, fileName, speed);
-                    }
+                output.setText("    Nincs új üzenet..");
+                if(startNStop.getText().equals("Start")) { // Amikor a turmesz alaphelyzetben van
                     turmite.start();
                     startNStop.setText("Stop");
                 }
-                else if(startNStop.getText().equals("Stop")){
+                else if(startNStop.getText().equals("Stop")){ // Amikor a turmesz éppen dolgozik
                     turmite.sleepNWakeUp();
                     startNStop.setText("Folytat");
                 }
-                else {
+                else { // Amikor a turmesz már egyszer elindult, de most éppen áll
                     turmite.sleepNWakeUp();
                     startNStop.setText("Stop");
                 }
-                output.setText("    Nincs új üzenet..");
             }
         });
 
@@ -134,11 +141,14 @@ public class MainFrame extends JFrame {
         clear.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                turmite.terminate();
-                grid.resize(size, size);
-                turmite.setStartingPosition(grid);
-                display.refresh(grid, turmite.getX(), turmite.getY());
+                turmite.terminate(); // Az eddig futó hangyát mindenképp megállítjuk
+                grid.resize(size, size); // A rácsot letöröljük
+                try { // Turmesz alaphelyzetbe állítása
+                    turmite = new Turmite(grid, display, fileName, speed);
+                } catch (IOException NoException) { /* A fileName mindig csak olyan értéket vesz fel, ami olvasható */ }
+                display.refresh(grid, turmite.getX(), turmite.getY()); // Megjelenítő frissítése
                 startNStop.setText("Start");
+                output.setForeground(Color.BLACK);
                 output.setText("    Rács és turmesz alaphelyzetbe állítva!");
             }
         });
@@ -147,7 +157,7 @@ public class MainFrame extends JFrame {
         screenShot.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                turmite.sleepNWakeUp();
+                turmite.sleepNWakeUp(); // Megállítjuk a turmeszt egy pillanatra, hogy ne írjon a rácsra, amíg készül a kép
                 saver.print(grid, output);
                 turmite.sleepNWakeUp();
             }
@@ -180,7 +190,7 @@ public class MainFrame extends JFrame {
         panel.add(c);
         return panel;
     }
-    private void newSize(JComboBox<String> sizeValue) {
+    private void newSize(JComboBox<String> sizeValue) { // Ezúttal csak négyzet alapú rácsot használunk
         Object selectedItem = sizeValue.getSelectedItem();
         if (selectedItem.equals("25x25")) {
             size = 25;
@@ -188,8 +198,7 @@ public class MainFrame extends JFrame {
             size = 250;
         } else if (selectedItem.equals("500x500")) {
             size = 500;
-        }
-        else {
+        } else {
             size = 125;
         }
     }
@@ -197,29 +206,30 @@ public class MainFrame extends JFrame {
         /// Felépítjük az ablakot ///
         setMinimumSize(new Dimension(500, 500));
         setResizable(false);
-        setUndecorated(true);
+        setUndecorated(true); // Nem lesz szükség rá, mert lesz egy külön gomb a program leállítására
         init();
         setVisible(true);
 
         /// Rács létrehozása ///
         size = 125;
-        grid = new Grid(size, size);
+        grid = new Grid(size, size); // Lehetne másmilyen is, de ebben a programban négyzet alapú rácsot fogunk használni
 
         /// Megjelenítés ///
-        display = new Display(grid, (int) Math.floor(grid.getWidth()/2), (int) Math.floor(grid.getHeight()/2));
+        display = new Display(grid, (int) Math.floor((double)grid.getWidth()/2), (int) Math.floor((double)grid.getHeight()/2));
         Point mfLocation = getLocation();
         display.setLocation((int) mfLocation.getX() + getWidth(), (int) mfLocation.getY());
-        display.setVisible(true);
+        display.setVisible(true); // Külön ablaka van
 
         /// Turmesz létrehozása ///
         speed = 1;
         fileName = "input\\LangtonSAnt.txt";
-        turmite = new Turmite(grid, display, fileName, speed);
+        try { // A "read" funkció miatt kell csak a try-catch blokk
+            turmite = new Turmite(grid, display, fileName, speed);
+        } catch (IOException exception) { /* A default bemenetnek jónak kell lennie */ }
 
         /// Pillanatkép készítő osztály létrehozása ///
         saver = new Save();
     }
-
     public static void main(String[] args) {
         MainFrame mf = new MainFrame();
     }

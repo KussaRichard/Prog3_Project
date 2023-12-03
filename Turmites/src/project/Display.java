@@ -4,9 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Display extends JFrame {
-    private Grid grid;
-    int x;
-    int y;
+    public Grid grid; // A rács
+    private int x; // Turmesz x koordinátája
+    private int y; // Turmesz y koordinátája
     public Display(Grid g, int idx, int idy) {
         grid = g;
         x = idx;
@@ -16,7 +16,7 @@ public class Display extends JFrame {
     private void init() {
         setMinimumSize(new Dimension(500, 500));
         setResizable(false);
-        setUndecorated(true);
+        setUndecorated(true); // Nincs rá szükség, mert a menü ablakában van külön gomb a kilépéshez
         add(new GridPanel());
     }
     private class GridPanel extends JPanel {
@@ -32,10 +32,10 @@ public class Display extends JFrame {
             for (int i = 0; i < rows; i++) {
                 for (int j = 0; j < cols; j++) {
                     int value = grid.getValueAt(i,j);
-                    if(x == i && y == j) {
+                    if(x == i && y == j) { // Azt a helyet, ahol a hangya áll pirossal jelöljük
                         g.setColor(Color.RED);
                     }
-                    else {
+                    else { // Minden más cellát értékének megfelelően színezzük
                         g.setColor(getColorForValue(value));
                     }
                     g.fillRect(j * cellWidth, i * cellHeight, cellWidth, cellHeight);
@@ -43,14 +43,16 @@ public class Display extends JFrame {
             }
         }
     }
+    /// Képernyő frissítése ///
     public void refresh(Grid newGrid, int idx, int idy) {
-        x = idx;
+        x = idx; // Megváltozhatott a hangya pozíciója
         y = idy;
-        grid = newGrid;
+        grid = newGrid; // Megváltozhattak a cellaértékek
         repaint();
     }
+    /// Színek megadása érték szerint ///
     public Color getColorForValue(int value) {
-        if (value == 1) {
+        if (value == 1) { // Jelenleg csak négy színnel dolgozunk, de ezt lehet tovább bővíteni
             return Color.WHITE;
         } else if (value == 2) {
             return Color.BLUE;
@@ -59,6 +61,6 @@ public class Display extends JFrame {
         } else if (value == 4) {
             return Color.GREEN;
         }
-        return Color.BLACK;
+        return Color.BLACK; // A háttérszín fekete
     }
 }

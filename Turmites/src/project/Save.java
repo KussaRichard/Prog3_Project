@@ -8,9 +8,10 @@ import java.io.File;
 import java.io.IOException;
 
 public class Save {
-    public void print(Grid grid, JLabel m) {
+    public void print(Grid grid, JLabel m) { // Egyetlen funkció kép készítéséhez
         BufferedImage image = new BufferedImage(grid.getWidth(), grid.getHeight(), BufferedImage.TYPE_INT_RGB);
 
+        /// Színezés ///
         for (int y = 0; y < grid.getHeight(); y++) {
             for (int x = 0; x < grid.getWidth(); x++) {
                 int colorValue = Color.BLACK.getRGB();
@@ -27,10 +28,11 @@ public class Save {
             }
         }
 
+        /// Mentés ///
         try {
             int i = 0;
             String fileName;
-            while (true) {
+            while (true) { // Olyan fájlt keresünk, ami eddig nem létezett (a korábbi képek is megmaradnak)
                 fileName = "output\\" + Integer.toString(i) + ".png";
                 File f = new File(fileName);
                 if(!f.exists() && !f.isDirectory()) {

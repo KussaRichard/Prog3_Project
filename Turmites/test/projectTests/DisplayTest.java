@@ -24,11 +24,21 @@ public class DisplayTest {
     }
 
     @Test
-    public void testColor() {
+    public void testColor() { // "getColorForValue" funkció tesztelése minden színre
         Assert.assertEquals(Color.BLACK, display.getColorForValue(grid.getValueAt(0,0)));
         Assert.assertEquals(Color.WHITE, display.getColorForValue(grid.getValueAt(1,1)));
         Assert.assertEquals(Color.BLUE, display.getColorForValue(grid.getValueAt(2,2)));
         Assert.assertEquals(Color.YELLOW, display.getColorForValue(grid.getValueAt(3,3)));
         Assert.assertEquals(Color.GREEN, display.getColorForValue(grid.getValueAt(4,4)));
+    }
+
+    @Test
+    public void testRefresh() { // "refresh" funkció tesztelése
+        int width = grid.getWidth();
+        int height = grid.getHeight();
+        grid.resize(6, 6);
+        display.refresh(grid, 0, 0);
+        Assert.assertNotEquals(width, display.grid.getWidth());
+        Assert.assertNotEquals(height, display.grid.getHeight());
     }
 }

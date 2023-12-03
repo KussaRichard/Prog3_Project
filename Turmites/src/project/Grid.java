@@ -1,9 +1,9 @@
 package project;
 
 public class Grid {
-    private int[][] matrix;
-    private int width;
-    private int height;
+    private int[][] matrix; // A rács
+    private int width; // A rács szélessége
+    private int height; // A rács magassága
     /// Konstruktor ///
     public Grid(int h, int w) {
         resize(w, h);
@@ -13,7 +13,7 @@ public class Grid {
     /// Cella értékének beállítása ///
     public void setValueAt(int x, int y, int value) { matrix[x][y] = value; }
     /// Rács méretezése ///
-    public void resize(int w, int h) {
+    public void resize(int w, int h) { // Új rácsot hoz létre, mert a méret átállításakor nem mindig van lehetőség az összes cella átmásolására
         width = w;
         height = h;
         matrix = new int[height][width];

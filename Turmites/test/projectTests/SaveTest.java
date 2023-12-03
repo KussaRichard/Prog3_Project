@@ -24,13 +24,13 @@ public class SaveTest {
     }
 
     @Test
-    public void testPrint() {
-        if(file.exists()) {
+    public void testPrint() { // "print" funkció tesztelése
+        if(file.exists()) { // Ha már létezett 0.png nevű fájl a célhelyen akkor töröljük
             file.delete();
         }
         saver.print(grid, message);
         Assert.assertEquals("    Kép elmentve! (output\\0.png)", message.getText());
         file = new File("output\\0.png");
-        Assert.assertTrue(file.exists());
+        Assert.assertTrue(file.exists()); // Ha képkészítő helyesen működik, akkor léteznie kell a 0.png nevű fájlnak
     }
 }
