@@ -9,12 +9,18 @@ import project.Save;
 import javax.swing.*;
 import java.io.File;
 
+/**
+ * Osztály a Save osztály függvényeinek tesztelésére.
+ */
 public class SaveTest {
     Grid grid;
     Save saver;
     JLabel message;
     File file;
 
+    /**
+     * Inicializálja a tesztekhez szükséges változókat.
+     */
     @Before
     public void setUp() {
         grid = new Grid(50,50);
@@ -23,8 +29,11 @@ public class SaveTest {
         file = new File("output\\0.png");
     }
 
+    /**
+     * Teszteli print funkciót
+     */
     @Test
-    public void testPrint() { // "print" funkció tesztelése
+    public void testPrint() {
         if(file.exists()) { // Ha már létezett 0.png nevű fájl a célhelyen akkor töröljük
             file.delete();
         }

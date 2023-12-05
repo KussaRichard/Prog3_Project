@@ -8,10 +8,16 @@ import project.Grid;
 
 import java.awt.*;
 
+/**
+ * Osztály a Display osztály függvényeinek tesztelésére.
+ */
 public class DisplayTest {
     Grid grid;
     Display display;
 
+    /**
+     * Inicializálja a tesztekhez szükséges változókat.
+     */
     @Before
     public void setUp() {
         grid = new Grid(5, 5);
@@ -23,8 +29,11 @@ public class DisplayTest {
         display = new Display(grid, 0, 0);
     }
 
+    /**
+     * Teszteli a getColorForValue funkciót minden színre.
+     */
     @Test
-    public void testColor() { // "getColorForValue" funkció tesztelése minden színre
+    public void testColor() {
         Assert.assertEquals(Color.BLACK, display.getColorForValue(grid.getValueAt(0,0)));
         Assert.assertEquals(Color.WHITE, display.getColorForValue(grid.getValueAt(1,1)));
         Assert.assertEquals(Color.BLUE, display.getColorForValue(grid.getValueAt(2,2)));
@@ -32,8 +41,11 @@ public class DisplayTest {
         Assert.assertEquals(Color.GREEN, display.getColorForValue(grid.getValueAt(4,4)));
     }
 
+    /**
+     * Teszteli a refresh funkciót.
+     */
     @Test
-    public void testRefresh() { // "refresh" funkció tesztelése
+    public void testRefresh() {
         int width = grid.getWidth();
         int height = grid.getHeight();
         grid.resize(6, 6);

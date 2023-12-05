@@ -7,11 +7,19 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Osztály képek készítéséhez és mentéséhez.
+ */
 public class Save {
-    public void print(Grid grid, JLabel m) { // Egyetlen funkció kép készítéséhez
+    /**
+     * Funkció, ami egy Grid osztálybeli példányból png formátumú outputot generál
+     * @param grid Grid osztálybeli példány, amiből kiolvassuk a cellákat
+     * @param m JLabel aminek átállítjuk a szövegét, ha elkészült egy kép
+     */
+    public void print(Grid grid, JLabel m) {
         BufferedImage image = new BufferedImage(grid.getWidth(), grid.getHeight(), BufferedImage.TYPE_INT_RGB);
 
-        /// Színezés ///
+        // Színezés //
         for (int y = 0; y < grid.getHeight(); y++) {
             for (int x = 0; x < grid.getWidth(); x++) {
                 int colorValue = Color.BLACK.getRGB();
@@ -28,7 +36,7 @@ public class Save {
             }
         }
 
-        /// Mentés ///
+        // Mentés //
         try {
             int i = 0;
             String fileName;

@@ -9,6 +9,9 @@ import project.Turmite;
 
 import java.io.IOException;
 
+/**
+ * Osztály a Turmite osztály függvényeinek tesztelésére.
+ */
 public class TurmiteTest {
     Grid grid;
     Grid grid2;
@@ -17,6 +20,9 @@ public class TurmiteTest {
     Turmite turmite;
     Turmite turmite2;
 
+    /**
+     * Inicializálja a tesztekhez szükséges változókat.
+     */
     @Before
     public void setUp() {
         grid = new Grid(6, 6);
@@ -29,8 +35,11 @@ public class TurmiteTest {
         } catch (IOException e) { /* A default bemenetnek jónak kell lennie */ }
     }
 
+    /**
+     * Teszteli a terminate funkciót.
+     */
     @Test
-    public void testTerminate() { // "terminate" funkció tesztelése
+    public void testTerminate() {
         Assert.assertFalse(turmite.isTerminated());
         turmite.start();
         turmite.terminate();
@@ -38,8 +47,11 @@ public class TurmiteTest {
         Assert.assertTrue(turmite.isAlive()); // Ettől még a szál életben van
     }
 
+    /**
+     * Teszteli a getX és getY funkciókat.
+     */
     @Test
-    public void testGetXY() { // "getX" és "getY" funkció tesztelése
+    public void testGetXY() {
         grid2.resize(10,10);
         Assert.assertEquals(3, turmite.getX());
         Assert.assertEquals(3, turmite.getY());
@@ -48,8 +60,11 @@ public class TurmiteTest {
         Assert.assertEquals(5, turmite.getY());
     }
 
+    /**
+     * Teszteli a setDirection funkciót.
+     */
     @Test
-    public void testSetDirection() { // "setDirection" funkció tesztelése
+    public void testSetDirection() {
         turmite.start();
         while (!turmite.isTerminated()) {
             // Megvárjuk amíg lefut a pályáról
@@ -66,8 +81,11 @@ public class TurmiteTest {
         Assert.assertNotEquals(grid, grid2); // Ha más irányba nézett mikor másodszorra indult, akkor az eredeti rács elforgatott verzióját kapjuk eredméyül
     }
 
+    /**
+     * Teszteli a setSpeed funkciót.
+     */
     @Test
-    public void testSpeed() { // "setSpeed" funkció tesztelése
+    public void testSpeed() {
         turmite2.start(); // Lassabb hangya
         turmite.start(); // Sokkal gyorsabb hangya
         while (!turmite.isTerminated() && !turmite2.isTerminated()) {
@@ -85,7 +103,7 @@ public class TurmiteTest {
             turmite = new Turmite(grid, display, "input\\LangtonSAnt.txt", 5);
             turmite2 = new Turmite(grid2, display2, "input\\LangtonSAnt.txt", 1);
         } catch (IOException e) { /* A default bemenetnek jónak kell lennie */ }
-        turmite.setSpeed(1); // Használjuk a tesztelni kívánt függvényt
+        turmite.setSpeed(1);
         turmite2.setSpeed(5);
         turmite.start();
         turmite2.start(); // Ezúttal ő a gyorsabb
@@ -96,8 +114,11 @@ public class TurmiteTest {
         Assert.assertFalse(turmite.isTerminated());
     }
 
+    /**
+     * Teszteli a sleepNWakeUp funkciót.
+     */
     @Test
-    public void testSleepNWakeUp() { // "sleepNWakeUp" funkció tesztelése
+    public void testSleepNWakeUp() {
         grid.resize(3,3);
         grid2.resize(3,3);
         try {
@@ -121,6 +142,9 @@ public class TurmiteTest {
         Assert.assertTrue(turmite.isTerminated());
     }
 
+    /**
+     * Teszteli a read funkciót.
+     */
     @Test
     public void testRead() { // "read" funkció tesztelése
         try {

@@ -1,30 +1,16 @@
 
 c
-java:S1192"FDefine a constant instead of duplicating this literal "Start" 5 times.(¢ªí¦8—ÕöûÂ1
-n	java:S117”"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÉğÎÒ8—ÕöûÂ1
-E
-java:S1604+"(Make this anonymous inner class a lambda(¯ı©8˜ÕöûÂ1
-E
-java:S16043"(Make this anonymous inner class a lambda(Í÷î8˜ÕöûÂ1
-J
-java:S1604X"(Make this anonymous inner class a lambda(ºªÔƒşÿÿÿÿ8˜ÕöûÂ1
-E
-java:S1604e"(Make this anonymous inner class a lambda(™…´Å8˜ÕöûÂ1
-E
-java:S1604x"(Make this anonymous inner class a lambda(â—šŞ8˜ÕöûÂ1
-F
-java:S1604"(Make this anonymous inner class a lambda(­üà¿8˜ÕöûÂ1
-E
-java:S1604"(Make this anonymous inner class a lambda(¢ï¥8˜ÕöûÂ1
-H
-java:S1948"&Make "grid" transient or serializable.(Êşùÿÿÿÿ8°ÕöûÂ1
+java:S1192?"FDefine a constant instead of duplicating this literal "Start" 5 times.(¢ªí¦8ÚÁ¯Ã1
+n	java:S117¬"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÉğÎÒ8ÊÎ¤·Ã1
+C
+java:S1948"&Make "grid" transient or serializable.(”ÑÂÙ8óÁ¯Ã1
 K
-java:S1948")Make "turmite" transient or serializable.(š´¥øÿÿÿÿ8°ÕöûÂ1
-I
-java:S1948"'Make "saver" transient or serializable.(Òêñ÷ıÿÿÿÿ8°ÕöûÂ1
+java:S1948")Make "turmite" transient or serializable.(ç’Œ™ûÿÿÿÿ8óÁ¯Ã1
+D
+java:S1948"'Make "saver" transient or serializable.(é†ƒ†8ÚÎ¤·Ã1
 t
-java:S3776"RRefactor this method to reduce its Cognitive Complexity from 24 to the 15 allowed.(şñÊëÿÿÿÿÿ8²ÕöûÂ1
+java:S37763"RRefactor this method to reduce its Cognitive Complexity from 31 to the 15 allowed.(şñÊëÿÿÿÿÿ8ÜÎ¤·Ã1
 T
-java:S1854ê"6Remove this useless assignment to local variable "mf".(Á ôª8ÂÕöûÂ1
+java:S1854›"6Remove this useless assignment to local variable "mf".(Á ôª8ñÎ¤·Ã1
 E
-java:S1481ê"'Remove this unused "mf" local variable.(Á ôª8ÂÕöûÂ1
+java:S1481›"'Remove this unused "mf" local variable.(Á ôª8òÎ¤·Ã1

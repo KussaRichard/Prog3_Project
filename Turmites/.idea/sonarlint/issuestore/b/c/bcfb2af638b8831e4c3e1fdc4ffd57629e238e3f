@@ -1,9 +1,9 @@
 
-m
-java:S1104"PMake grid a static final constant or non-public and provide accessors if needed.(­¤ç¹8¯×÷Â1
-F
-java:S2387"*"x" is the name of a field in "Component".(î­ø~8—ÎÖÎÂ1
+r
+java:S1104"PMake grid a static final constant or non-public and provide accessors if needed.(”Ë“­ûÿÿÿÿ8¯×÷Â1
 L
-java:S2387	"*"y" is the name of a field in "Component".(âÚÔùÿÿÿÿ8—ÎÖÎÂ1
-C
-java:S1948"&Make "grid" transient or serializable.(­¤ç¹8œ—ÛÂ1
+java:S2387"*"x" is the name of a field in "Component".(ĞÇñüÿÿÿÿ8—ÎÖÎÂ1
+L
+java:S2387"*"y" is the name of a field in "Component".(Ê€ÄŒøÿÿÿÿ8—ÎÖÎÂ1
+H
+java:S1948"&Make "grid" transient or serializable.(”Ë“­ûÿÿÿÿ8œ—ÛÂ1

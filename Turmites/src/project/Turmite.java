@@ -6,9 +6,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A hangya Osztálya.
+ * Ő állítja át egy állapotgép alapján a rács bizonyos celláinak értékeit.
+ */
 public class Turmite extends Thread {
-    private Grid grid; // A rács
-    private Display display; // A megjelenítő
+    private Grid grid;
+    private Display display;
     private List<List<String>> stateMachine; // Az állapotgép
     private String state; // Az aktuális állapot
     private int direction; // A hangya iránya, amerre néz, csak négy értéket vehet fel: {0 = É, 1 = K, 2 = D, 3 = NY}
@@ -17,6 +21,15 @@ public class Turmite extends Thread {
     private int speed; // A hangya sebessége
     private boolean terminated; // Igaz, ha egy hangyát végleg leállítottuk
     private boolean sleep; // Igaz, ha egy hangyát ideiglenesen megállítottuk
+
+    /**
+     * A hangya konstruktora.
+     * @param g A Grid, amin dolgozik a hangya.
+     * @param d A Display, ami megjeleníti a Grid -et és rajta a hangyát
+     * @param fileName A fájl, ahonnan beolvassa az állapotgépet (kiterjesztés nélkül)
+     * @param s A hangya sebessége
+     * @throws IOException Kivételosztály, amit akkor dob, ha baj van beolvasás közben
+     */
     public Turmite(Grid g, Display d, String fileName, int s) throws IOException{
         grid = g;
         display = d;
@@ -28,7 +41,10 @@ public class Turmite extends Thread {
         terminated = false;
         sleep = false;
     }
-    /// A hangya dolgozik ///
+
+    /**
+     * Függvény, ami elindítja a hangyát.
+     */
     @Override
     public void run() {
         while (!terminated) {
@@ -100,7 +116,12 @@ public class Turmite extends Thread {
             }
         }
     }
-    /// Az állapotgépet beolvassuk ///
+
+    /**
+     * Függvény, ami beolvassa az állapotgépet fájlnév alapján.
+     * @param fileName A fájl neve kiterjesztés nélkül.
+     * @throws IOException Kivételosztály, amit akkor dob, ha nem létezik a fájl, vagy nem jó a formázása.
+     */
     private void read(String fileName) throws IOException{
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             stateMachine = new ArrayList<>();
@@ -124,20 +145,34 @@ public class Turmite extends Thread {
             }
         }
     }
-    /// Hangya helyzete alapállapotba ///
+
+    /**
+     * Beállítja a hangya koordinátáit, hogy az adott rács közepére kerüljön
+     * @param g A rács.
+     */
     public void setStartingPosition(Grid g) { // Az alapállapot az, amikor nagyjából a rács közepén helyezkedik el
         x = (int) Math.floor((double) g.getWidth() /2);
         y = (int) Math.floor((double) g.getHeight() /2);
     }
-    /// A hangyát végleg leállítjuk ///
+
+    /**
+     * Függvény, ami végleg leállítja a hangyát.
+     */
     public void terminate() {
         terminated = true;
     }
-    /// Megkérdezzük a hangya végleg megállt-e ///
+
+    /**
+     * Függvény, ami visszaadja, hogy a hangyát leállítottuk-e már.
+     * @return Igaz, ha a hangyát már leállítottuk, különben hamis.
+     */
     public boolean isTerminated() {
         return terminated;
     }
-    /// A hangyát elaltatjuk vagy éppen felébresztjük ///
+
+    /**
+     * Függvény, ami elaltatja a hangyát vagy éppen felébreszti.
+     */
     public synchronized void sleepNWakeUp() {
         if(sleep) {
             sleep = false;
@@ -147,21 +182,37 @@ public class Turmite extends Thread {
             sleep = true;
         }
     }
-    /// Beállítjuk a hangya sebességét ///
+
+    /**
+     * Beállítja a hangya sebességét.
+     * @param s Az új sebesség értéke.
+     */
     public void setSpeed(int s) {
         speed = s;
     }
-    /// Beállítjuk a hangya irányát ///
+
+    /**
+     * Beállítja a hangya irányát.
+     * @param d Az új irány értéke.
+     */
     public void setDirection(int d) {
         if(d >= 0 && d <= 3) {
             direction = d;
         }
     }
-    /// Lekérdezzük a hangya x koordinátáját ///
+
+    /**
+     * Visszaadja, a hangya x koordinátáját.
+     * @return A hangya x koordinátája.
+     */
     public int getX() {
         return x;
     }
-    /// Lekérdezzük a hangya y koordinátáját ///
+
+    /**
+     * Visszaadja, a hangya y koordinátáját.
+     * @return A hangya y koordinátája.
+     */
     public int getY() {
         return y;
     }
